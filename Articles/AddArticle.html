@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایجاد مقاله</title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+            font-family:Tahoma;
+        }
+
+        body{
+            background:#f4f6f8;
+            margin:0;
+            padding:30px;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 3px 15px rgba(0,0,0,.1);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+            color:#34495e;
+        }
+
+
+        .form-group{
+            margin-bottom:20px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+
+        input,
+        textarea,
+        select{
+
+            width:100%;
+            padding:12px;
+            border:1px solid #ddd;
+            border-radius:6px;
+            font-size:14px;
+
+        }
+
+
+        textarea{
+            min-height:150px;
+            resize:vertical;
+        }
+
+
+        .row{
+            display:flex;
+            gap:20px;
+        }
+
+
+        .row .form-group{
+            flex:1;
+        }
+
+
+        .image-box{
+
+            border:2px dashed #ccc;
+            padding:25px;
+            text-align:center;
+            border-radius:8px;
+
+        }
+
+
+        .buttons{
+            margin-top:30px;
+            display:flex;
+            gap:15px;
+        }
+
+
+        button{
+
+            padding:12px 30px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:15px;
+
+        }
+
+
+        .save{
+            background:#27ae60;
+            color:white;
+        }
+
+
+        .draft{
+            background:#95a5a6;
+            color:white;
+        }
+
+
+        @media(max-width:700px){
+
+            .row{
+                flex-direction:column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>ایجاد مقاله جدید</h1>
+
+
+<form>
+
+
+<div class="form-group">
+
+<label>عنوان مقاله</label>
+
+<input type="text" placeholder="عنوان مقاله را وارد کنید">
+
+</div>
+
+
+
+<div class="row">
+
+
+<div class="form-group">
+
+<label>دسته بندی</label>
+
+<select>
+
+<option>برنامه نویسی</option>
+<option>پایگاه داده</option>
+<option>شبکه</option>
+<option>امنیت</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>وضعیت</label>
+
+<select>
+
+<option>پیش نویس</option>
+<option>منتشر شده</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>تصویر شاخص</label>
+
+<div class="image-box">
+
+<input type="file">
+
+</div>
+
+</div>
+
+
+
+
+<div class="form-group">
+
+<label>خلاصه مقاله</label>
+
+<textarea placeholder="یک خلاصه کوتاه از مقاله بنویسید"></textarea>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>متن مقاله</label>
+
+<textarea 
+placeholder="متن کامل مقاله را وارد کنید...">
+
+</textarea>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>برچسب‌ها</label>
+
+<input type="text" placeholder="مثلا: C#, MVC, SQL Server">
+
+</div>
+
+
+
+<div class="buttons">
+
+<button type="submit" class="save">
+ذخیره و انتشار
+</button>
+
+
+<button type="button" class="draft">
+ذخیره پیش نویس
+</button>
+
+
+</div>
+
+
+
+</form>
+
+
+</div>
+
+
+</body>
+</html>
