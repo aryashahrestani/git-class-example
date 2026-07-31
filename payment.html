@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پرداخت | سایت نمونه</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="payment">
+
+<header id="site-nav"></header>
+
+<main>
+  <div class="container" style="max-width:800px; margin-top:45px;">
+
+    <div class="paper">
+
+      <h1>پرداخت آنلاین</h1>
+
+      <div class="plans" style="grid-template-columns:repeat(3,1fr); margin-bottom:30px;">
+        <div class="plan" id="plan-basic">
+          <h3>پایه</h3>
+          <div class="price">۱۰٬۰۰۰</div>
+          <button class="btn btn-gray" onclick="selectPlan('basic')">انتخاب</button>
+        </div>
+        <div class="plan hot" id="plan-pro">
+          <h3>حرفه‌ای</h3>
+          <div class="price">۲۵٬۰۰۰</div>
+          <button class="btn" onclick="selectPlan('pro')">انتخاب</button>
+        </div>
+        <div class="plan" id="plan-vip">
+          <h3>ویژه</h3>
+          <div class="price">۵۰٬۰۰۰</div>
+          <button class="btn btn-gray" onclick="selectPlan('vip')">انتخاب</button>
+        </div>
+      </div>
+
+      <div class="payment-box">
+        <p id="plan-note" style="margin-bottom:12px; font-size:14px; color:#555;">ابتدا یک پلن انتخاب کنید یا مبلغ را وارد کنید.</p>
+
+        <label>مبلغ (تومان)</label>
+        <input id="pay-amount" type="number" value="25000" min="1000">
+
+        <label>شماره کارت</label>
+        <input id="pay-card" type="text" placeholder="1234 5678 9012 3456">
+
+        <label>نام دارنده کارت</label>
+        <input id="pay-name" type="text" placeholder="علی محمدی">
+
+        <div class="row">
+          <div class="form-group">
+            <label>تاریخ انقضا (MM/YY)</label>
+            <input id="pay-exp" type="text" placeholder="08/28">
+          </div>
+          <div class="form-group">
+            <label>CVV2</label>
+            <input id="pay-cvv" type="text" placeholder="123">
+          </div>
+        </div>
+
+        <button class="pay-btn" id="pay-btn" onclick="processPayment()">پرداخت</button>
+        <div class="pay-result" id="pay-result"></div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<footer id="site-footer"></footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  var PLANS = { basic: 10000, pro: 25000, vip: 50000 };
+
+  var params = new URLSearchParams(window.location.search);
+  var chosen = params.get('plan');
+  if (chosen && PLANS[chosen]) selectPlan(chosen);
+
+  function selectPlan(key) {
+    document.querySelectorAll('.plan').forEach(function (p) { p.classList.remove('hot'); });
+    var plan = document.getElementById('plan-' + key);
+    plan.classList.add('hot');
+    document.getElementById('pay-amount').value = PLANS[key];
+    document.getElementById('plan-note').textContent = 'پلن «' + plan.querySelector('h3').textContent + '» انتخاب شد.';
+  }
+
+  function processPayment() {
+    var amount = document.getElementById('pay-amount').value.trim();
+    var card = document.getElementById('pay-card').value.trim();
+    var name = document.getElementById('pay-name').value.trim();
+    var exp = document.getElementById('pay-exp').value.trim();
+    var cvv = document.getElementById('pay-cvv').value.trim();
+    var result = document.getElementById('pay-result');
+    var btn = document.getElementById('pay-btn');
+
+    if (!amount || !card || !name || !exp || !cvv) {
+      result.className = 'pay-result error';
+      result.textContent = 'لطفا تمام فیلدهای پرداخت را تکمیل کنید.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'در حال پرداخت...';
+    result.className = 'pay-result';
+
+    setTimeout(function () {
+      result.className = 'pay-result success';
+      result.textContent = 'پرداخت مبلغ ' + Number(amount).toLocaleString('fa-IR') + ' تومان با موفقیت انجام شد. (نسخه نمایشی)';
+      btn.disabled = false;
+      btn.textContent = 'پرداخت';
+    }, 1200);
+  }
+</script>
+
+</body>
+</html>
