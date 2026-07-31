@@ -108,78 +108,45 @@
 
     <h1>آخرین مقالات</h1>
 
-    <div class="article">
-
-        <img src="https://picsum.photos/400/300?1">
-
-        <div class="content">
-
-            <h2>آشنایی با Git و مدیریت نسخه</h2>
-
-            <div class="meta">
-                ۱۰ مرداد ۱۴۰۵ | دسته‌بندی: برنامه‌نویسی
-            </div>
-
-            <p>
-                در این مقاله با مفاهیم اولیه Git، Repository، Commit، Branch و نحوه استفاده
-                از آن در پروژه‌های تیمی آشنا می‌شوید.
-            </p>
-
-            <a href="#" class="btn">ادامه مطلب</a>
-
-        </div>
-
+    <div style="text-align:center; margin-bottom:25px;">
+        <a href="AddArticle.html" class="btn" style="background:#27ae60;">+ ایجاد مقاله جدید</a>
+        <a href="../index.html" class="btn" style="background:#95a5a6;">بازگشت به خانه</a>
     </div>
 
+    <div id="list"></div>
 
-    <div class="article">
-
-        <img src="https://picsum.photos/400/300?2">
-
-        <div class="content">
-
-            <h2>بهترین روش طراحی فرم در ASP.NET MVC</h2>
-
-            <div class="meta">
-                ۸ مرداد ۱۴۰۵ | دسته‌بندی: ASP.NET
-            </div>
-
-            <p>
-                در این مقاله با ساخت فرم‌های پویا، اعتبارسنجی سمت کاربر و سمت سرور و
-                پیاده‌سازی اصولی ViewModel آشنا خواهید شد.
-            </p>
-
-            <a href="#" class="btn">ادامه مطلب</a>
-
-        </div>
-
-    </div>
-
-
-    <div class="article">
-
-        <img src="https://picsum.photos/400/300?3">
-
-        <div class="content">
-
-            <h2>آشنایی با SQL Server برای توسعه‌دهندگان</h2>
-
-            <div class="meta">
-                ۵ مرداد ۱۴۰۵ | دسته‌بندی: پایگاه داده
-            </div>
-
-            <p>
-                در این مقاله مهم‌ترین نکات طراحی جداول، ایندکس‌ها، Queryها و افزایش
-                کارایی SQL Server بررسی می‌شود.
-            </p>
-
-            <a href="#" class="btn">ادامه مطلب</a>
-
-        </div>
-
-    </div>
+    <p id="empty" style="text-align:center; color:#888; display:none;">
+        هنوز مقاله‌ای وجود ندارد. اولین مقاله را ایجاد کنید!
+    </p>
 
 </div>
+
+<script src="../assets/js/articles.js"></script>
+<script>
+    var box = document.getElementById('list');
+    var items = ArticleStore.getArticles();
+
+    if (!items.length) {
+        document.getElementById('empty').style.display = 'block';
+    }
+
+    var html = '';
+    items.forEach(function (a) {
+        html += '<div class="article">' +
+            '<img src="' + a.image + '" alt="">' +
+            '<div class="content">' +
+                '<h2>' + a.title + '</h2>' +
+                '<div class="meta">' + a.date + ' | دسته‌بندی: ' + a.category +
+                    (a.status === 'پیش نویس' ? ' | وضعیت: ' + a.status : '') +
+                '</div>' +
+                '<p>' + a.summary + '</p>' +
+                '<a href="Article.html?id=' + a.id + '" class="btn">ادامه مطلب</a>' +
+            '</div>' +
+        '</div>';
+    });
+
+    box.innerHTML = html;
+</script>
 
 </body>
 </html>

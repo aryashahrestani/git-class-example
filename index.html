@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="assets/css/bootstrap.rtl.min.css" rel="stylesheet">
   <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <title>Simple Tabs</title>
+  <title>My Website</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -50,11 +50,86 @@
       display: block;
     }
 
+    .tab-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .tab-head h2 {
+      margin: 0;
+    }
+
+    .add-link {
+      background: #28a745;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .add-link:hover {
+      background: #218838;
+      color: #fff;
+    }
+
+    .article-card {
+      display: flex;
+      gap: 15px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .article-card img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .article-card h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+    }
+
+    .article-card .meta {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .article-card .read {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
     .payment-box {
       padding: 15px;
       background: #f9f9f9;
       border: 1px solid #ddd;
       border-radius: 8px;
+    }
+
+    .payment-box label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .payment-box input {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
     }
 
     .pay-btn {
@@ -70,6 +145,32 @@
     .pay-btn:hover {
       background: #218838;
     }
+
+    .pay-btn:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .pay-result {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .pay-result.success {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .pay-result.error {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
   </style>
 </head>
 <body>
@@ -77,31 +178,41 @@
     <h1>My Website</h1>
 
     <div class="tabs">
-      <button class="tab-button active" onclick="showTab('articles')">Articles</button>
-      <button class="tab-button" onclick="showTab('payment')">Payment</button>
+      <button class="tab-button active" onclick="showTab('articles', this)">Articles</button>
+      <button class="tab-button" onclick="showTab('payment', this)">Payment</button>
     </div>
 
     <div id="articles" class="tab-content active">
-      <h2>Articles</h2>
-      <p>This is the Articles section.</p>
-      <ul>
-        <li>Article 1</li>
-        <li>Article 2</li>
-        <li>Article 3</li>
-      </ul>
+      <div class="tab-head">
+        <h2>Articles</h2>
+        <a class="add-link" href="Articles/AddArticle.html">+ New Article</a>
+      </div>
+      <div id="article-list"></div>
+      <a href="Articles/ArticleList.html" class="btn btn-primary btn-sm">View all articles</a>
     </div>
 
     <div id="payment" class="tab-content">
       <h2>Payment</h2>
       <div class="payment-box">
-        <p>Proceed with your payment here.</p>
-        <button class="pay-btn">Pay Now</button>
+        <label>Amount ($)</label>
+        <input id="pay-amount" type="number" value="25" min="1">
+        <label>Card Number</label>
+        <input id="pay-card" type="text" placeholder="1234 5678 9012 3456">
+        <label>Name on Card</label>
+        <input id="pay-name" type="text" placeholder="John Doe">
+        <label>Expiry (MM/YY)</label>
+        <input id="pay-exp" type="text" placeholder="08/28">
+        <label>CVV</label>
+        <input id="pay-cvv" type="text" placeholder="123">
+        <button class="pay-btn" id="pay-btn" onclick="processPayment()">Pay Now</button>
+        <div class="pay-result" id="pay-result"></div>
       </div>
     </div>
   </div>
 
+  <script src="assets/js/articles.js"></script>
   <script>
-    function showTab(tabId) {
+    function showTab(tabId, btn) {
       const contents = document.querySelectorAll('.tab-content');
       const buttons = document.querySelectorAll('.tab-button');
 
@@ -109,8 +220,58 @@
       buttons.forEach(button => button.classList.remove('active'));
 
       document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
+      btn.classList.add('active');
     }
+
+    function renderArticles() {
+      const items = ArticleStore.getArticles();
+      const box = document.getElementById('article-list');
+
+      if (!items.length) {
+        box.innerHTML = '<p>No articles yet. <a href="Articles/AddArticle.html">Add one!</a></p>';
+        return;
+      }
+
+      box.innerHTML = items.map(a =>
+        '<div class="article-card">' +
+          '<img src="' + a.image + '" alt="">' +
+          '<div class="article-card-body">' +
+            '<h3>' + a.title + '</h3>' +
+            '<div class="meta">' + a.date + ' | ' + a.category + '</div>' +
+            '<a class="read" href="Articles/Article.html?id=' + a.id + '">Read more</a>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function processPayment() {
+      const amount = document.getElementById('pay-amount').value.trim();
+      const card = document.getElementById('pay-card').value.trim();
+      const name = document.getElementById('pay-name').value.trim();
+      const exp = document.getElementById('pay-exp').value.trim();
+      const cvv = document.getElementById('pay-cvv').value.trim();
+      const result = document.getElementById('pay-result');
+      const btn = document.getElementById('pay-btn');
+
+      if (!amount || !card || !name || !exp || !cvv) {
+        result.className = 'pay-result error';
+        result.textContent = 'Please fill in all payment fields.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Processing...';
+      result.className = 'pay-result';
+
+      setTimeout(() => {
+        result.className = 'pay-result success';
+        result.textContent = 'Payment of $' + amount + ' completed successfully. (Demo)';
+        btn.disabled = false;
+        btn.textContent = 'Pay Now';
+      }, 1200);
+    }
+
+    renderArticles();
   </script>
 </body>
 </html>

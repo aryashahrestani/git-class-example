@@ -137,14 +137,14 @@
 <h1>ایجاد مقاله جدید</h1>
 
 
-<form>
+<form id="article-form">
 
 
 <div class="form-group">
 
 <label>عنوان مقاله</label>
 
-<input type="text" placeholder="عنوان مقاله را وارد کنید">
+<input type="text" id="f-title" placeholder="عنوان مقاله را وارد کنید">
 
 </div>
 
@@ -157,7 +157,7 @@
 
 <label>دسته بندی</label>
 
-<select>
+<select id="f-cat">
 
 <option>برنامه نویسی</option>
 <option>پایگاه داده</option>
@@ -173,10 +173,10 @@
 
 <label>وضعیت</label>
 
-<select>
+<select id="f-status">
 
-<option>پیش نویس</option>
 <option>منتشر شده</option>
+<option>پیش نویس</option>
 
 </select>
 
@@ -193,7 +193,7 @@
 
 <div class="image-box">
 
-<input type="file">
+<input type="file" id="f-image" accept="image/*">
 
 </div>
 
@@ -206,7 +206,7 @@
 
 <label>خلاصه مقاله</label>
 
-<textarea placeholder="یک خلاصه کوتاه از مقاله بنویسید"></textarea>
+<textarea id="f-summary" placeholder="یک خلاصه کوتاه از مقاله بنویسید"></textarea>
 
 </div>
 
@@ -216,7 +216,7 @@
 
 <label>متن مقاله</label>
 
-<textarea 
+<textarea id="f-body"
 placeholder="متن کامل مقاله را وارد کنید...">
 
 </textarea>
@@ -229,7 +229,7 @@ placeholder="متن کامل مقاله را وارد کنید...">
 
 <label>برچسب‌ها</label>
 
-<input type="text" placeholder="مثلا: C#, MVC, SQL Server">
+<input type="text" id="f-tags" placeholder="مثلا: C#, MVC, SQL Server">
 
 </div>
 
@@ -242,7 +242,7 @@ placeholder="متن کامل مقاله را وارد کنید...">
 </button>
 
 
-<button type="button" class="draft">
+<button type="button" class="draft" id="draft-btn">
 ذخیره پیش نویس
 </button>
 
@@ -256,6 +256,70 @@ placeholder="متن کامل مقاله را وارد کنید...">
 
 </div>
 
+
+<script src="../assets/js/articles.js"></script>
+<script>
+
+    function readFile(file) {
+        return new Promise(function (resolve) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                resolve(reader.result);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function collect() {
+        var title = document.getElementById('f-title').value.trim();
+        var summary = document.getElementById('f-summary').value.trim();
+        var body = document.getElementById('f-body').value.trim();
+        var tags = document.getElementById('f-tags').value;
+
+        if (!title) {
+            alert('عنوان مقاله را وارد کنید');
+            return null;
+        }
+
+        var file = document.getElementById('f-image').files[0];
+        var imagePromise = file
+            ? readFile(file)
+            : Promise.resolve('https://picsum.photos/400/300?r=' + Math.floor(Math.random() * 1000));
+
+        return imagePromise.then(function (image) {
+            return {
+                title: title,
+                category: document.getElementById('f-cat').value,
+                status: document.getElementById('f-status').value,
+                date: new Date().toLocaleDateString('fa-IR'),
+                author: 'کاربر',
+                summary: summary,
+                content: body ? '<p>' + body.split('\n').join('</p><p>') + '</p>' : '',
+                tags: tags.split(',').map(function (t) { return t.trim(); }).filter(Boolean),
+                image: image
+            };
+        });
+    }
+
+    document.getElementById('article-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        collect().then(function (article) {
+            if (!article) return;
+            ArticleStore.addArticle(article);
+            location.href = 'ArticleList.html';
+        });
+    });
+
+    document.getElementById('draft-btn').addEventListener('click', function () {
+        collect().then(function (article) {
+            if (!article) return;
+            article.status = 'پیش نویس';
+            ArticleStore.addArticle(article);
+            location.href = 'ArticleList.html';
+        });
+    });
+
+</script>
 
 </body>
 </html>

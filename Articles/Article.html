@@ -145,6 +145,30 @@ body{
 
 }
 
+.btn{
+
+    display:inline-block;
+    background:#3498db;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:5px;
+    text-decoration:none;
+
+}
+
+.btn:hover{
+
+    background:#2980b9;
+    color:#fff;
+
+}
+
+.back-link{
+
+    margin-top:25px;
+
+}
+
 
 </style>
 
@@ -156,134 +180,68 @@ body{
 
 <div class="container">
 
+<div id="view">
 
-<h1 class="title">
-آشنایی با معماری MVC در ASP.NET
-</h1>
-
-
-<div class="meta">
-نویسنده: احمد رضایی |
-تاریخ انتشار: ۱۰ مرداد ۱۴۰۵ |
-دسته‌بندی: برنامه نویسی
 </div>
-
-
-
-<img class="cover"
-src="https://picsum.photos/900/400"
-alt="تصویر مقاله">
-
-
-
-<div class="summary">
-
-در این مقاله با مفهوم MVC، نحوه ارتباط Model و View و Controller
-و مزایای استفاده از این معماری در پروژه‌های نرم‌افزاری آشنا می‌شویم.
 
 </div>
 
 
+<script src="../assets/js/articles.js"></script>
+<script>
+    var params = new URLSearchParams(window.location.search);
+    var article = ArticleStore.getArticle(params.get('id'));
+    var view = document.getElementById('view');
 
-<div class="content">
+    if (!article) {
 
+        view.innerHTML =
+            '<h1 class="title">مقاله پیدا نشد</h1>' +
+            '<p>مقاله مورد نظر شما وجود ندارد یا حذف شده است.</p>' +
+            '<a class="btn back-link" href="ArticleList.html">بازگشت به لیست مقالات</a>';
 
-<h2>
-MVC چیست؟
-</h2>
+    } else {
 
+        var others = ArticleStore.getArticles().filter(function (x) {
+            return String(x.id) !== String(article.id);
+        }).slice(0, 2);
 
-<p>
-MVC یک الگوی طراحی نرم‌افزار است که برنامه را به سه بخش اصلی
-Model، View و Controller تقسیم می‌کند.
-این جداسازی باعث افزایش خوانایی، نگهداری آسان‌تر و توسعه سریع‌تر نرم‌افزار می‌شود.
-</p>
+        var related = others.map(function (x) {
+            return '<div class="related-item"><a href="Article.html?id=' + x.id + '">' + x.title + '</a></div>';
+        }).join('');
 
+        var tags = (article.tags || []).map(function (t) {
+            return '<span class="tag">' + t + '</span>';
+        }).join('');
 
+        view.innerHTML =
+            '<h1 class="title">' + article.title + '</h1>' +
 
-<h2>
-بخش‌های اصلی MVC
-</h2>
+            '<div class="meta">' +
+                'نویسنده: ' + article.author + ' | ' +
+                'تاریخ انتشار: ' + article.date + ' | ' +
+                'دسته‌بندی: ' + article.category +
+            '</div>' +
 
+            '<img class="cover" src="' + article.image + '" alt="تصویر مقاله">' +
 
-<p>
-Model مسئول مدیریت داده‌ها و منطق برنامه است.
-View وظیفه نمایش اطلاعات به کاربر را دارد و Controller
-درخواست‌های کاربر را دریافت و بین Model و View هماهنگی ایجاد می‌کند.
-</p>
+            '<div class="summary">' + article.summary + '</div>' +
 
+            '<div class="content">' + article.content + '</div>' +
 
+            '<div class="tags"><strong>برچسب‌ها:</strong> ' + tags + '</div>' +
 
-<h2>
-مزایای استفاده از MVC
-</h2>
+            '<div class="author">نوشته شده توسط: ' + article.author + '</div>' +
 
+            '<div class="related">' +
+                '<h2>مقالات مرتبط</h2>' +
+                (related || '<p>مقاله دیگری وجود ندارد.</p>') +
+            '</div>' +
 
-<ul>
+            '<a class="btn back-link" href="ArticleList.html">بازگشت به لیست مقالات</a>';
 
-<li>تفکیک مسئولیت‌ها</li>
-<li>تست‌پذیری بهتر</li>
-<li>امکان توسعه تیمی راحت‌تر</li>
-<li>نگهداری ساده‌تر کد</li>
-
-</ul>
-
-
-</div>
-
-
-
-<div class="tags">
-
-<strong>برچسب‌ها:</strong>
-
-<span class="tag">ASP.NET</span>
-<span class="tag">MVC</span>
-<span class="tag">C#</span>
-
-</div>
-
-
-
-<div class="author">
-
-نوشته شده توسط: احمد رضایی
-
-</div>
-
-
-
-
-<div class="related">
-
-<h2>
-مقالات مرتبط
-</h2>
-
-
-<div class="related-item">
-
-<a href="#">
-آموزش Entity Framework در پروژه‌های MVC
-</a>
-
-</div>
-
-
-<div class="related-item">
-
-<a href="#">
-بهینه سازی Query های SQL Server
-</a>
-
-</div>
-
-
-</div>
-
-
-
-</div>
+    }
+</script>
 
 
 </body>
