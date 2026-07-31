@@ -1,0 +1,19 @@
+{
+  "name": "git-class-example",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample website for the Git class with automated code analysis",
+  "scripts": {
+    "lint:js": "eslint \"assets/js/**/*.js\"",
+    "lint:css": "stylelint \"assets/css/**/*.css\"",
+    "lint:html": "html-validate \"**/*.html\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "html-validate": "^9.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+name: "CodeQL configuration"
+
+paths:
+  - "assets/js"
+  - "Articles"
+  - "index.html"
+  - "payment.html"
+  - "about.html"
+  - "contact.html"
+  - "Admin"
+
+paths-ignore:
+  - "**/node_modules"
+  - "assets/js/*.min.js"

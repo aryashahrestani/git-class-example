@@ -1,0 +1,16 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "ignoreFiles": ["assets/css/bootstrap*.css"],
+  "rules": {
+    "keyframes-name-pattern": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "media-feature-range-notation": null,
+    "number-leading-zero": null,
+    "font-weight-notation": null,
+    "font-family-name-quotes": null,
+    "custom-property-pattern": null,
+    "selector-class-pattern": null,
+    "no-descending-specificity": null
+  }
+}

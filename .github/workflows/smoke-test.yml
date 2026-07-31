@@ -1,0 +1,30 @@
+name: "Smoke Test"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  serve:
+    name: Serve and Check Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Start server and check pages
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 > /dev/null 2>&1 &
+          sleep 2
+          failed=0
+          for f in $(find . -name "*.html" -not -path "./.git/*" -not -path "./node_modules/*" | sed 's|^\./||' | sort); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:8080/$f")
+            echo "$f -> $code"
+            [ "$code" = "200" ] || failed=1
+          done
+          if [ "$failed" != "0" ]; then
+            echo "::error::One or more pages failed to load"
+            exit 1
+          fi
+          echo "All pages served successfully"

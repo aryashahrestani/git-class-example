@@ -1,0 +1,12 @@
+{
+  "extends": ["html-validate:recommended"],
+  "excludePatterns": ["node_modules/**", ".git/**", ".github/**"],
+  "rules": {
+    "no-inline-style": "off",
+    "no-inline-script": "off",
+    "long-title": "off",
+    "prefer-button": "off",
+    "no-implicit-button-type": "off",
+    "require-visible-text": "off"
+  }
+}
