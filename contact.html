@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تماس با ما | سایت نمونه</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="contact">
+
+<header id="site-nav"></header>
+
+<main>
+  <div class="container" style="max-width:800px; margin-top:45px;">
+
+    <div class="paper">
+
+      <h1>تماس با ما</h1>
+
+      <form id="contact-form">
+        <div class="row">
+          <div class="form-group">
+            <label>نام و نام خانوادگی</label>
+            <input id="c-name" type="text" placeholder="نام خود را وارد کنید">
+          </div>
+          <div class="form-group">
+            <label>ایمیل</label>
+            <input id="c-email" type="email" placeholder="example@mail.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>موضوع</label>
+          <input id="c-subject" type="text" placeholder="موضوع پیام">
+        </div>
+
+        <div class="form-group">
+          <label>متن پیام</label>
+          <textarea id="c-message" placeholder="پیام خود را بنویسید..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-green">ارسال پیام</button>
+        <div id="c-result"></div>
+      </form>
+
+    </div>
+
+    <section class="section">
+      <h2>اطلاعات تماس</h2>
+      <div class="stat-row">
+        <div class="stat"><b>ایمیل</b><span>info@sample.ir</span></div>
+        <div class="stat"><b>تلفن</b><span>۰۲۱-۱۲۳۴۵۶۷۸</span></div>
+        <div class="stat"><b>آدرس</b><span>تهران، خیابان نمونه</span></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer id="site-footer"></footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var name = document.getElementById('c-name').value.trim();
+    var email = document.getElementById('c-email').value.trim();
+    var subject = document.getElementById('c-subject').value.trim();
+    var message = document.getElementById('c-message').value.trim();
+    var result = document.getElementById('c-result');
+
+    if (!name || !email || !message) {
+      result.className = 'alert-error';
+      result.textContent = 'نام، ایمیل و متن پیام الزامی هستند.';
+      return;
+    }
+
+    SiteMessages.save({ name: name, email: email, subject: subject, message: message });
+
+    result.className = 'alert-success';
+    result.textContent = 'پیام شما با موفقیت ارسال شد.';
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>

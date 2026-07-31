@@ -3,262 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ایجاد مقاله</title>
-
-    <style>
-
-        *{
-            box-sizing:border-box;
-            font-family:Tahoma;
-        }
-
-        body{
-            background:#f4f6f8;
-            margin:0;
-            padding:30px;
-        }
-
-        .container{
-            max-width:900px;
-            margin:auto;
-            background:white;
-            padding:30px;
-            border-radius:12px;
-            box-shadow:0 3px 15px rgba(0,0,0,.1);
-        }
-
-        h1{
-            text-align:center;
-            margin-bottom:30px;
-            color:#34495e;
-        }
-
-
-        .form-group{
-            margin-bottom:20px;
-        }
-
-        label{
-            display:block;
-            margin-bottom:8px;
-            font-weight:bold;
-        }
-
-
-        input,
-        textarea,
-        select{
-
-            width:100%;
-            padding:12px;
-            border:1px solid #ddd;
-            border-radius:6px;
-            font-size:14px;
-
-        }
-
-
-        textarea{
-            min-height:150px;
-            resize:vertical;
-        }
-
-
-        .row{
-            display:flex;
-            gap:20px;
-        }
-
-
-        .row .form-group{
-            flex:1;
-        }
-
-
-        .image-box{
-
-            border:2px dashed #ccc;
-            padding:25px;
-            text-align:center;
-            border-radius:8px;
-
-        }
-
-
-        .buttons{
-            margin-top:30px;
-            display:flex;
-            gap:15px;
-        }
-
-
-        button{
-
-            padding:12px 30px;
-            border:none;
-            border-radius:6px;
-            cursor:pointer;
-            font-size:15px;
-
-        }
-
-
-        .save{
-            background:#27ae60;
-            color:white;
-        }
-
-
-        .draft{
-            background:#95a5a6;
-            color:white;
-        }
-
-
-        @media(max-width:700px){
-
-            .row{
-                flex-direction:column;
-            }
-
-        }
-
-    </style>
-
+    <title>ایجاد مقاله | سایت نمونه</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-
-
-<body>
-
-
-<div class="container">
-
-
-<h1>ایجاد مقاله جدید</h1>
-
-
-<form id="article-form">
-
-
-<div class="form-group">
-
-<label>عنوان مقاله</label>
-
-<input type="text" id="f-title" placeholder="عنوان مقاله را وارد کنید">
-
-</div>
-
-
-
-<div class="row">
-
-
-<div class="form-group">
-
-<label>دسته بندی</label>
-
-<select id="f-cat">
-
-<option>برنامه نویسی</option>
-<option>پایگاه داده</option>
-<option>شبکه</option>
-<option>امنیت</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>وضعیت</label>
-
-<select id="f-status">
-
-<option>منتشر شده</option>
-<option>پیش نویس</option>
-
-</select>
-
-</div>
-
-
-</div>
-
-
-
-<div class="form-group">
-
-<label>تصویر شاخص</label>
-
-<div class="image-box">
-
-<input type="file" id="f-image" accept="image/*">
-
-</div>
-
-</div>
-
-
-
-
-<div class="form-group">
-
-<label>خلاصه مقاله</label>
-
-<textarea id="f-summary" placeholder="یک خلاصه کوتاه از مقاله بنویسید"></textarea>
-
-</div>
-
-
-
-<div class="form-group">
-
-<label>متن مقاله</label>
-
-<textarea id="f-body"
-placeholder="متن کامل مقاله را وارد کنید...">
-
-</textarea>
-
-</div>
-
-
-
-<div class="form-group">
-
-<label>برچسب‌ها</label>
-
-<input type="text" id="f-tags" placeholder="مثلا: C#, MVC, SQL Server">
-
-</div>
-
-
-
-<div class="buttons">
-
-<button type="submit" class="save">
-ذخیره و انتشار
-</button>
-
-
-<button type="button" class="draft" id="draft-btn">
-ذخیره پیش نویس
-</button>
-
-
-</div>
-
-
-
-</form>
-
-
-</div>
-
-
+<body data-page="articles">
+
+<header id="site-nav"></header>
+
+<main>
+    <div class="container" style="max-width:900px; margin-top:45px;">
+
+        <div class="paper">
+
+            <h1 id="page-title">ایجاد مقاله جدید</h1>
+
+            <form id="article-form">
+
+                <div class="form-group">
+                    <label>عنوان مقاله</label>
+                    <input type="text" id="f-title" placeholder="عنوان مقاله را وارد کنید">
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>دسته بندی</label>
+                        <select id="f-cat">
+                            <option>برنامه نویسی</option>
+                            <option>پایگاه داده</option>
+                            <option>شبکه</option>
+                            <option>امنیت</option>
+                            <option>طراحی وب</option>
+                            <option>ASP.NET</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>وضعیت</label>
+                        <select id="f-status">
+                            <option>منتشر شده</option>
+                            <option>پیش نویس</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>تصویر شاخص</label>
+                    <div class="image-box">
+                        <input type="file" id="f-image" accept="image/*">
+                        <p id="img-note" style="margin-top:8px; font-size:12px; color:#888;"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>خلاصه مقاله</label>
+                    <textarea id="f-summary" placeholder="یک خلاصه کوتاه از مقاله بنویسید"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>متن مقاله</label>
+                    <textarea id="f-body" placeholder="متن کامل مقاله را وارد کنید..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>برچسب‌ها</label>
+                    <input type="text" id="f-tags" placeholder="مثلا: C#, MVC, SQL Server">
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="save" id="submit-btn">ذخیره و انتشار</button>
+                    <button type="button" class="draft" id="draft-btn">ذخیره پیش نویس</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</main>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
 <script src="../assets/js/articles.js"></script>
 <script>
+
+    var params = new URLSearchParams(window.location.search);
+    var editId = params.get('id');
+    var editing = editId ? ArticleStore.getArticle(editId) : null;
+
+    if (editing) {
+        document.getElementById('page-title').textContent = 'ویرایش مقاله';
+        document.getElementById('submit-btn').textContent = 'ذخیره تغییرات';
+        document.title = 'ویرایش مقاله | سایت نمونه';
+
+        document.getElementById('f-title').value = editing.title;
+        document.getElementById('f-cat').value = editing.category;
+        document.getElementById('f-status').value = editing.status;
+        document.getElementById('f-summary').value = editing.summary;
+        document.getElementById('f-body').value = editing.content
+            .replace(/<h2>/g, '').replace(/<\/h2>/g, '\n')
+            .replace(/<p>/g, '').replace(/<\/p>/g, '\n')
+            .replace(/<[^>]+>/g, '').trim();
+        document.getElementById('f-tags').value = (editing.tags || []).join(', ');
+        document.getElementById('img-note').textContent = 'در صورت انتخاب تصویر جدید، تصویر فعلی جایگزین می‌شود.';
+    }
 
     function readFile(file) {
         return new Promise(function (resolve) {
@@ -282,41 +130,62 @@ placeholder="متن کامل مقاله را وارد کنید...">
         }
 
         var file = document.getElementById('f-image').files[0];
-        var imagePromise = file
-            ? readFile(file)
-            : Promise.resolve('https://picsum.photos/400/300?r=' + Math.floor(Math.random() * 1000));
 
-        return imagePromise.then(function (image) {
-            return {
-                title: title,
+        if (file) {
+            return readFile(file).then(function (image) {
+                return { title: title, summary: summary, body: body, tags: tags, image: image };
+            });
+        }
+
+        if (editing) {
+            return Promise.resolve({ title: title, summary: summary, body: body, tags: tags, image: editing.image });
+        }
+
+        return Promise.resolve({
+            title: title,
+            summary: summary,
+            body: body,
+            tags: tags,
+            image: 'https://picsum.photos/400/300?r=' + Math.floor(Math.random() * 1000)
+        });
+    }
+
+    function save(status) {
+        collect().then(function (data) {
+            if (!data) return;
+
+            var article = {
+                title: data.title,
                 category: document.getElementById('f-cat').value,
-                status: document.getElementById('f-status').value,
+                status: status,
                 date: new Date().toLocaleDateString('fa-IR'),
                 author: 'کاربر',
-                summary: summary,
-                content: body ? '<p>' + body.split('\n').join('</p><p>') + '</p>' : '',
-                tags: tags.split(',').map(function (t) { return t.trim(); }).filter(Boolean),
-                image: image
+                summary: data.summary,
+                content: data.body ? '<p>' + data.body.split('\n').join('</p><p>') + '</p>' : '',
+                tags: data.tags.split(',').map(function (t) { return t.trim(); }).filter(Boolean),
+                image: data.image
             };
+
+            if (editing) {
+                article.id = editing.id;
+                article.author = editing.author;
+                article.date = editing.date;
+                ArticleStore.updateArticle(article);
+            } else {
+                ArticleStore.addArticle(article);
+            }
+
+            location.href = 'ArticleList.html';
         });
     }
 
     document.getElementById('article-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        collect().then(function (article) {
-            if (!article) return;
-            ArticleStore.addArticle(article);
-            location.href = 'ArticleList.html';
-        });
+        save('منتشر شده');
     });
 
     document.getElementById('draft-btn').addEventListener('click', function () {
-        collect().then(function (article) {
-            if (!article) return;
-            article.status = 'پیش نویس';
-            ArticleStore.addArticle(article);
-            location.href = 'ArticleList.html';
-        });
+        save('پیش نویس');
     });
 
 </script>
