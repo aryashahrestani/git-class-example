@@ -1,179 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="assets/css/bootstrap.rtl.min.css" rel="stylesheet">
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <title>My Website</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background: #f4f4f4;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .tabs {
-      display: flex;
-      border-bottom: 2px solid #ddd;
-      margin-bottom: 20px;
-    }
-
-    .tab-button {
-      padding: 12px 20px;
-      cursor: pointer;
-      border: none;
-      background: none;
-      font-size: 16px;
-    }
-
-    .tab-button.active {
-      border-bottom: 3px solid #007bff;
-      font-weight: bold;
-      color: #007bff;
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .tab-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .tab-head h2 {
-      margin: 0;
-    }
-
-    .add-link {
-      background: #28a745;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .add-link:hover {
-      background: #218838;
-      color: #fff;
-    }
-
-    .article-card {
-      display: flex;
-      gap: 15px;
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 12px;
-      align-items: center;
-    }
-
-    .article-card img {
-      width: 100px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .article-card h3 {
-      margin: 0 0 4px;
-      font-size: 16px;
-    }
-
-    .article-card .meta {
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 6px;
-    }
-
-    .article-card .read {
-      color: #007bff;
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    .payment-box {
-      padding: 15px;
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
-    .payment-box label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .payment-box input {
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-
-    .pay-btn {
-      margin-top: 10px;
-      padding: 10px 16px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .pay-btn:hover {
-      background: #218838;
-    }
-
-    .pay-btn:disabled {
-      background: #6c757d;
-      cursor: not-allowed;
-    }
-
-    .pay-result {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 6px;
-      display: none;
-    }
-
-    .pay-result.success {
-      display: block;
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-
-    .pay-result.error {
-      display: block;
-      background: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سایت نمونه | صفحه اصلی</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body data-page="home">
+
+<header id="site-nav"></header>
+
+<main>
+
+  <section class="hero">
+    <h1>به سایت نمونه خوش آمدید</h1>
+    <p>مقالات آموزشی در زمینه برنامه‌نویسی، پایگاه داده، شبکه و امنیت — به‌همراه سیستم پرداخت نمونه</p>
+    <div class="hero-btns">
+      <a class="btn btn-light" href="Articles/ArticleList.html">مشاهده مقالات</a>
+      <a class="btn btn-outline-light" href="payment.html">پرداخت آنلاین</a>
+    </div>
+  </section>
+
   <div class="container">
     <h1>My Website</h1>
 
@@ -183,96 +30,98 @@
       <button class="tab-button" onclick="showTab('aboutUs', this)">About Us</button>
     </div>
 
-    <div id="articles" class="tab-content active">
-      <div class="tab-head">
-        <h2>Articles</h2>
-        <a class="add-link" href="Articles/AddArticle.html">+ New Article</a>
-      </div>
-      <div id="article-list"></div>
-      <a href="Articles/ArticleList.html" class="btn btn-primary btn-sm">View all articles</a>
-    </div>
+    <section class="section">
+      <h2>جدیدترین مقالات</h2>
+      <div id="featured" class="cards-grid"></div>
+      <p style="text-align:center; margin-top:25px;">
+        <a class="btn btn-blue" href="Articles/ArticleList.html">مشاهده همه مقالات</a>
+      </p>
+    </section>
 
-    <div id="payment" class="tab-content">
-      <h2>Payment</h2>
-      <div class="payment-box">
-        <label>Amount ($)</label>
-        <input id="pay-amount" type="number" value="25" min="1">
-        <label>Card Number</label>
-        <input id="pay-card" type="text" placeholder="1234 5678 9012 3456">
-        <label>Name on Card</label>
-        <input id="pay-name" type="text" placeholder="John Doe">
-        <label>Expiry (MM/YY)</label>
-        <input id="pay-exp" type="text" placeholder="08/28">
-        <label>CVV</label>
-        <input id="pay-cvv" type="text" placeholder="123">
-        <button class="pay-btn" id="pay-btn" onclick="processPayment()">Pay Now</button>
-        <div class="pay-result" id="pay-result"></div>
+    <section class="section">
+      <h2>آمار سایت</h2>
+      <div class="stat-row">
+        <div class="stat"><b id="stat-articles">0</b><span>مقاله منتشر شده</span></div>
+        <div class="stat"><b>۴</b><span>دسته‌بندی آموزشی</span></div>
+        <div class="stat"><b>۱۲۰۰+</b><span>بازدید روزانه</span></div>
       </div>
-    </div>
+    </section>
+
+    <section class="section">
+      <h2>پلن‌های عضویت</h2>
+      <div class="plans">
+        <div class="plan">
+          <h3>پایه</h3>
+          <div class="price">۱۰٬۰۰۰ تومان / ماه</div>
+          <ul>
+            <li>دسترسی به ۳ مقاله در ماه</li>
+            <li>پشتیبانی ایمیل</li>
+          </ul>
+          <a class="btn" href="payment.html?plan=basic">انتخاب پلن</a>
+        </div>
+        <div class="plan hot">
+          <span class="plan-badge">پیشنهاد ویژه</span>
+          <h3>حرفه‌ای</h3>
+          <div class="price">۲۵٬۰۰۰ تومان / ماه</div>
+          <ul>
+            <li>دسترسی نامحدود به مقالات</li>
+            <li>دانلود کدها و فایل‌ها</li>
+            <li>پشتیبانی تلفنی</li>
+          </ul>
+          <a class="btn" href="payment.html?plan=pro">انتخاب پلن</a>
+        </div>
+        <div class="plan">
+          <h3>ویژه</h3>
+          <div class="price">۵۰٬۰۰۰ تومان / ماه</div>
+          <ul>
+            <li>تمام امکانات پلن حرفه‌ای</li>
+            <li>جلسه پرسش و پاسخ خصوصی</li>
+            <li>دسترسی زودهنگام به مطالب</li>
+          </ul>
+          <a class="btn" href="payment.html?plan=vip">انتخاب پلن</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>درباره سایت نمونه</h2>
+      <div class="paper" style="text-align:center;">
+        <p>
+          سایت نمونه یک وب‌سایت آموزشی است که برای تمرین مهارت‌های توسعه وب و کار با Git ساخته شده است.
+          تمام صفحات این سایت با HTML، CSS و JavaScript پیاده‌سازی شده و داده‌ها در مرورگر شما ذخیره می‌شوند.
+        </p>
+        <a class="btn" href="about.html">بیشتر بدانید</a>
+      </div>
+    </section>
+
   </div>
 
-  <script src="assets/js/articles.js"></script>
-  <script>
-    function showTab(tabId, btn) {
-      const contents = document.querySelectorAll('.tab-content');
-      const buttons = document.querySelectorAll('.tab-button');
+</main>
 
-      contents.forEach(content => content.classList.remove('active'));
-      buttons.forEach(button => button.classList.remove('active'));
+<footer id="site-footer"></footer>
 
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
-    }
+<script src="assets/js/main.js"></script>
+<script src="assets/js/articles.js"></script>
+<script>
+  var items = ArticleStore.getArticles().filter(function (a) {
+    return a.status !== 'پیش نویس';
+  }).slice(0, 3);
 
-    function renderArticles() {
-      const items = ArticleStore.getArticles();
-      const box = document.getElementById('article-list');
+  var box = document.getElementById('featured');
+  box.innerHTML = items.map(function (a) {
+    return '<div class="card">' +
+      '<img src="' + a.image + '" alt="">' +
+      '<div class="card-body">' +
+        '<h3>' + a.title + '</h3>' +
+        '<div class="meta">' + a.date + ' | ' + a.category + '</div>' +
+        '<p>' + a.summary + '</p>' +
+        '<a class="btn" href="Articles/Article.html?id=' + a.id + '">ادامه مطلب</a>' +
+      '</div>' +
+    '</div>';
+  }).join('');
 
-      if (!items.length) {
-        box.innerHTML = '<p>No articles yet. <a href="Articles/AddArticle.html">Add one!</a></p>';
-        return;
-      }
+  document.getElementById('stat-articles').textContent = items.length;
+</script>
 
-      box.innerHTML = items.map(a =>
-        '<div class="article-card">' +
-          '<img src="' + a.image + '" alt="">' +
-          '<div class="article-card-body">' +
-            '<h3>' + a.title + '</h3>' +
-            '<div class="meta">' + a.date + ' | ' + a.category + '</div>' +
-            '<a class="read" href="Articles/Article.html?id=' + a.id + '">Read more</a>' +
-          '</div>' +
-        '</div>'
-      ).join('');
-    }
-
-    function processPayment() {
-      const amount = document.getElementById('pay-amount').value.trim();
-      const card = document.getElementById('pay-card').value.trim();
-      const name = document.getElementById('pay-name').value.trim();
-      const exp = document.getElementById('pay-exp').value.trim();
-      const cvv = document.getElementById('pay-cvv').value.trim();
-      const result = document.getElementById('pay-result');
-      const btn = document.getElementById('pay-btn');
-
-      if (!amount || !card || !name || !exp || !cvv) {
-        result.className = 'pay-result error';
-        result.textContent = 'Please fill in all payment fields.';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Processing...';
-      result.className = 'pay-result';
-
-      setTimeout(() => {
-        result.className = 'pay-result success';
-        result.textContent = 'Payment of $' + amount + ' completed successfully. (Demo)';
-        btn.disabled = false;
-        btn.textContent = 'Pay Now';
-      }, 1200);
-    }
-
-    renderArticles();
-  </script>
 </body>
 </html>
