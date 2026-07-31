@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایجاد مقاله | سایت نمونه</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="articles">
+
+<header id="site-nav"></header>
+
+<main>
+    <div class="container" style="max-width:900px; margin-top:45px;">
+
+        <div class="paper">
+
+            <h1 id="page-title">ایجاد مقاله جدید</h1>
+
+            <form id="article-form">
+
+                <div class="form-group">
+                    <label>عنوان مقاله</label>
+                    <input type="text" id="f-title" placeholder="عنوان مقاله را وارد کنید">
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>دسته بندی</label>
+                        <select id="f-cat">
+                            <option>برنامه نویسی</option>
+                            <option>پایگاه داده</option>
+                            <option>شبکه</option>
+                            <option>امنیت</option>
+                            <option>طراحی وب</option>
+                            <option>ASP.NET</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>وضعیت</label>
+                        <select id="f-status">
+                            <option>منتشر شده</option>
+                            <option>پیش نویس</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>تصویر شاخص</label>
+                    <div class="image-box">
+                        <input type="file" id="f-image" accept="image/*">
+                        <p id="img-note" style="margin-top:8px; font-size:12px; color:#888;"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>خلاصه مقاله</label>
+                    <textarea id="f-summary" placeholder="یک خلاصه کوتاه از مقاله بنویسید"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>متن مقاله</label>
+                    <textarea id="f-body" placeholder="متن کامل مقاله را وارد کنید..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>برچسب‌ها</label>
+                    <input type="text" id="f-tags" placeholder="مثلا: C#, MVC, SQL Server">
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="save" id="submit-btn">ذخیره و انتشار</button>
+                    <button type="button" class="draft" id="draft-btn">ذخیره پیش نویس</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</main>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/articles.js"></script>
+<script>
+
+    var params = new URLSearchParams(window.location.search);
+    var editId = params.get('id');
+    var editing = editId ? ArticleStore.getArticle(editId) : null;
+
+    if (editing) {
+        document.getElementById('page-title').textContent = 'ویرایش مقاله';
+        document.getElementById('submit-btn').textContent = 'ذخیره تغییرات';
+        document.title = 'ویرایش مقاله | سایت نمونه';
+
+        document.getElementById('f-title').value = editing.title;
+        document.getElementById('f-cat').value = editing.category;
+        document.getElementById('f-status').value = editing.status;
+        document.getElementById('f-summary').value = editing.summary;
+        document.getElementById('f-body').value = editing.content
+            .replace(/<h2>/g, '').replace(/<\/h2>/g, '\n')
+            .replace(/<p>/g, '').replace(/<\/p>/g, '\n')
+            .replace(/<[^>]+>/g, '').trim();
+        document.getElementById('f-tags').value = (editing.tags || []).join(', ');
+        document.getElementById('img-note').textContent = 'در صورت انتخاب تصویر جدید، تصویر فعلی جایگزین می‌شود.';
+    }
+
+    function readFile(file) {
+        return new Promise(function (resolve) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                resolve(reader.result);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function collect() {
+        var title = document.getElementById('f-title').value.trim();
+        var summary = document.getElementById('f-summary').value.trim();
+        var body = document.getElementById('f-body').value.trim();
+        var tags = document.getElementById('f-tags').value;
+
+        if (!title) {
+            alert('عنوان مقاله را وارد کنید');
+            return null;
+        }
+
+        var file = document.getElementById('f-image').files[0];
+
+        if (file) {
+            return readFile(file).then(function (image) {
+                return { title: title, summary: summary, body: body, tags: tags, image: image };
+            });
+        }
+
+        if (editing) {
+            return Promise.resolve({ title: title, summary: summary, body: body, tags: tags, image: editing.image });
+        }
+
+        return Promise.resolve({
+            title: title,
+            summary: summary,
+            body: body,
+            tags: tags,
+            image: 'https://picsum.photos/400/300?r=' + Math.floor(Math.random() * 1000)
+        });
+    }
+
+    function save(status) {
+        collect().then(function (data) {
+            if (!data) return;
+
+            var article = {
+                title: data.title,
+                category: document.getElementById('f-cat').value,
+                status: status,
+                date: new Date().toLocaleDateString('fa-IR'),
+                author: 'کاربر',
+                summary: data.summary,
+                content: data.body ? '<p>' + data.body.split('\n').join('</p><p>') + '</p>' : '',
+                tags: data.tags.split(',').map(function (t) { return t.trim(); }).filter(Boolean),
+                image: data.image
+            };
+
+            if (editing) {
+                article.id = editing.id;
+                article.author = editing.author;
+                article.date = editing.date;
+                ArticleStore.updateArticle(article);
+            } else {
+                ArticleStore.addArticle(article);
+            }
+
+            location.href = 'ArticleList.html';
+        });
+    }
+
+    document.getElementById('article-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        save('منتشر شده');
+    });
+
+    document.getElementById('draft-btn').addEventListener('click', function () {
+        save('پیش نویس');
+    });
+
+</script>
+
+</body>
+</html>

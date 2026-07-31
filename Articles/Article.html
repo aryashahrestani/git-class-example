@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاهده مقاله | سایت نمونه</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="articles">
+
+<header id="site-nav"></header>
+
+<main>
+    <div class="container" style="max-width:900px; margin-top:45px;">
+
+        <div class="paper" id="view"></div>
+
+    </div>
+</main>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/articles.js"></script>
+<script>
+    var params = new URLSearchParams(window.location.search);
+    var allItems = ArticleStore.getArticles();
+    var article = null;
+    var idx = -1;
+
+    for (var i = 0; i < allItems.length; i++) {
+        if (String(allItems[i].id) === params.get('id')) {
+            article = allItems[i];
+            idx = i;
+            break;
+        }
+    }
+
+    var view = document.getElementById('view');
+
+    if (!article) {
+
+        view.innerHTML =
+            '<h1 class="title">مقاله پیدا نشد</h1>' +
+            '<p>مقاله مورد نظر شما وجود ندارد یا حذف شده است.</p>' +
+            '<a class="btn back-link" href="ArticleList.html">بازگشت به لیست مقالات</a>';
+
+    } else {
+
+        document.title = article.title + ' | سایت نمونه';
+
+        var others = allItems.filter(function (x) {
+            return String(x.id) !== String(article.id);
+        }).slice(0, 2);
+
+        var related = others.map(function (x) {
+            return '<div class="related-item"><a href="Article.html?id=' + x.id + '">' + x.title + '</a></div>';
+        }).join('');
+
+        var tags = (article.tags || []).map(function (t) {
+            return '<span class="tag">' + t + '</span>';
+        }).join('');
+
+        var prev = allItems[idx + 1];
+        var next = allItems[idx - 1];
+
+        var pager =
+            '<div class="pager">' +
+                (prev
+                    ? '<a class="next" href="Article.html?id=' + prev.id + '">' + prev.title + ' ←</a>'
+                    : '<span></span>') +
+                (next
+                    ? '<a href="Article.html?id=' + next.id + '">→ ' + next.title + '</a>'
+                    : '<span></span>') +
+            '</div>';
+
+        view.innerHTML =
+            '<h1 class="title">' + article.title + '</h1>' +
+
+            '<div class="meta">' +
+                'نویسنده: ' + article.author + ' | ' +
+                'تاریخ انتشار: ' + article.date + ' | ' +
+                'دسته‌بندی: ' + article.category +
+            '</div>' +
+
+            '<img class="cover" src="' + article.image + '" alt="تصویر مقاله">' +
+
+            '<div class="summary">' + article.summary + '</div>' +
+
+            '<div class="content">' + article.content + '</div>' +
+
+            '<div class="tags"><strong>برچسب‌ها:</strong> ' + tags + '</div>' +
+
+            '<div class="author">نوشته شده توسط: ' + article.author + '</div>' +
+
+            '<div class="related">' +
+                '<h2>مقالات مرتبط</h2>' +
+                (related || '<p>مقاله دیگری وجود ندارد.</p>') +
+            '</div>' +
+
+            '<div style="margin-top:25px;">' +
+                '<a class="btn" href="ArticleList.html">بازگشت به لیست</a> ' +
+                '<button class="btn btn-gray" onclick="shareArticle()">اشتراک‌گذاری لینک</button>' +
+            '</div>' +
+
+            pager;
+
+    }
+
+    function shareArticle() {
+        var text = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+                alert('لینک مقاله کپی شد.');
+            });
+        } else {
+            prompt('لینک مقاله:', text);
+        }
+    }
+</script>
+
+</body>
+</html>

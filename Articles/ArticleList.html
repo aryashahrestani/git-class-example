@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقالات | سایت نمونه</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="articles">
+
+<header id="site-nav"></header>
+
+<main>
+    <div class="container" style="margin-top:45px;">
+
+        <h1 style="text-align:center; color:#2c3e50; margin-bottom:25px;">آخرین مقالات</h1>
+
+        <div style="text-align:center; margin-bottom:25px;">
+            <a href="AddArticle.html" class="btn btn-green">+ ایجاد مقاله جدید</a>
+        </div>
+
+        <div class="filters">
+            <input id="search" type="text" placeholder="جستجو در مقالات...">
+            <select id="cat-filter">
+                <option value="">همه دسته‌بندی‌ها</option>
+            </select>
+        </div>
+
+        <div id="list"></div>
+
+        <p id="empty" style="text-align:center; color:#888; display:none;">
+            مقاله‌ای پیدا نشد. اولین مقاله را ایجاد کنید!
+        </p>
+
+    </div>
+</main>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/articles.js"></script>
+<script>
+    var allItems = ArticleStore.getArticles();
+
+    function renderList(list) {
+        var box = document.getElementById('list');
+        document.getElementById('empty').style.display = list.length ? 'none' : 'block';
+
+        box.innerHTML = list.map(function (a) {
+            return '<div class="article">' +
+                '<img src="' + a.image + '" alt="">' +
+                '<div class="content">' +
+                    '<h2>' + a.title + '</h2>' +
+                    '<div class="meta">' + a.date + ' | دسته‌بندی: ' + a.category +
+                        (a.status === 'پیش نویس' ? ' | وضعیت: ' + a.status : '') +
+                    '</div>' +
+                    '<p>' + a.summary + '</p>' +
+                    '<a href="Article.html?id=' + a.id + '" class="btn">ادامه مطلب</a>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    function applyFilters() {
+        var q = document.getElementById('search').value.trim();
+        var cat = document.getElementById('cat-filter').value;
+
+        renderList(allItems.filter(function (a) {
+            var matchQ = !q || a.title.indexOf(q) !== -1 || a.summary.indexOf(q) !== -1;
+            var matchCat = !cat || a.category === cat;
+            return matchQ && matchCat;
+        }));
+    }
+
+    var cats = [];
+    allItems.forEach(function (a) {
+        if (cats.indexOf(a.category) === -1) cats.push(a.category);
+    });
+
+    var select = document.getElementById('cat-filter');
+    cats.forEach(function (c) {
+        var opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        select.appendChild(opt);
+    });
+
+    document.getElementById('search').addEventListener('input', applyFilters);
+    document.getElementById('cat-filter').addEventListener('change', applyFilters);
+
+    renderList(allItems);
+</script>
+
+</body>
+</html>

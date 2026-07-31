@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سایت نمونه | صفحه اصلی</title>
+  <link rel="stylesheet" href="assets/css/style.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="assets/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -75,105 +79,197 @@
   </style>
 </head>
 
-<body>
-  <div class="container">
-    <h1>My Website</h1>
+<body data-page="home">
 
-    <div class="tabs">
-      <button class="tab-button active" onclick="showTab('articles')">Articles</button>
-      <button class="tab-button" onclick="showTab('payment')">Payment</button>
-    </div>
+  <header id="site-nav"></header>
 
-    <div id="articles" class="tab-content active">
-      <h2>Articles</h2>
-      <p>This is the Articles section.</p>
-      <ul>
-        <li>Article 1</li>
-        <li>Article 2</li>
-        <li>Article 3</li>
-      </ul>
-    </div>
+  <main>
 
-    <div id="payment" class="tab-content">
-      <div class="container py-4">
-
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-
-            <div class="card shadow-sm">
-              <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">پرداخت سفارش</h4>
-              </div>
-
-              <div class="card-body">
-
-                <!-- خلاصه سفارش -->
-                <h5 class="mb-3">خلاصه سفارش</h5>
-
-                <div class="d-flex justify-content-between border-bottom py-2">
-                  <span>اشتراک یک‌ماهه</span>
-                  <span>۴۹۹,۰۰۰ تومان</span>
-                </div>
-
-                <div class="d-flex justify-content-between border-bottom py-2">
-                  <span>مالیات</span>
-                  <span>۰ تومان</span>
-                </div>
-
-                <div class="d-flex justify-content-between fw-bold fs-5 py-3">
-                  <span>مبلغ قابل پرداخت</span>
-                  <span class="text-success">۴۹۹,۰۰۰ تومان</span>
-                </div>
-
-                <hr>
-
-                <!-- روش پرداخت -->
-                <h5 class="mb-3">روش پرداخت</h5>
-
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="radio" name="paymentMethod" id="online" checked>
-                  <label class="form-check-label" for="online">
-                    پرداخت آنلاین
-                  </label>
-                </div>
-
-                <div class="form-check mb-4">
-                  <input class="form-check-input" type="radio" name="paymentMethod" id="wallet">
-                  <label class="form-check-label" for="wallet">
-                    پرداخت از کیف پول
-                  </label>
-                </div>
-
-                <div class="alert alert-info">
-                  پس از کلیک روی دکمه زیر، به درگاه پرداخت امن بانک منتقل خواهید شد.
-                </div>
-
-                <button class="btn btn-success btn-lg w-100">
-                  پرداخت و انتقال به درگاه
-                </button>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-
+    <section class="hero">
+      <h1>به سایت نمونه خوش آمدید</h1>
+      <p>مقالات آموزشی در زمینه برنامه‌نویسی، پایگاه داده، شبکه و امنیت — به‌همراه سیستم پرداخت نمونه</p>
+      <div class="hero-btns">
+        <a class="btn btn-light" href="Articles/ArticleList.html">مشاهده مقالات</a>
+        <a class="btn btn-outline-light" href="payment.html">پرداخت آنلاین</a>
       </div>
+    </section>
+
+    <div class="container">
+
+      <section class="section">
+        <h2>جدیدترین مقالات</h2>
+        <div id="featured" class="cards-grid"></div>
+        <p style="text-align:center; margin-top:25px;">
+          <a class="btn btn-blue" href="Articles/ArticleList.html">مشاهده همه مقالات</a>
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>آمار سایت</h2>
+        <div class="stat-row">
+          <div class="stat"><b id="stat-articles">0</b><span>مقاله منتشر شده</span></div>
+          <div class="stat"><b>۴</b><span>دسته‌بندی آموزشی</span></div>
+          <div class="stat"><b>۱۲۰۰+</b><span>بازدید روزانه</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>پلن‌های عضویت</h2>
+        <div class="plans">
+          <div class="plan">
+            <h3>پایه</h3>
+            <div class="price">۱۰٬۰۰۰ تومان / ماه</div>
+            <ul>
+              <li>دسترسی به ۳ مقاله در ماه</li>
+              <li>پشتیبانی ایمیل</li>
+            </ul>
+            <a class="btn" href="payment.html?plan=basic">انتخاب پلن</a>
+          </div>
+          <div class="plan hot">
+            <span class="plan-badge">پیشنهاد ویژه</span>
+            <h3>حرفه‌ای</h3>
+            <div class="price">۲۵٬۰۰۰ تومان / ماه</div>
+            <ul>
+              <li>دسترسی نامحدود به مقالات</li>
+              <li>دانلود کدها و فایل‌ها</li>
+              <li>پشتیبانی تلفنی</li>
+            </ul>
+            <a class="btn" href="payment.html?plan=pro">انتخاب پلن</a>
+          </div>
+          <div class="plan">
+            <h3>ویژه</h3>
+            <div class="price">۵۰٬۰۰۰ تومان / ماه</div>
+            <ul>
+              <li>تمام امکانات پلن حرفه‌ای</li>
+              <li>جلسه پرسش و پاسخ خصوصی</li>
+              <li>دسترسی زودهنگام به مطالب</li>
+            </ul>
+            <a class="btn" href="payment.html?plan=vip">انتخاب پلن</a>
+          </div>
+          <h1>My Website</h1>
+
+          <div class="tabs">
+            <button class="tab-button active" onclick="showTab('articles')">Articles</button>
+            <button class="tab-button" onclick="showTab('payment')">Payment</button>
+          </div>
+
+          <div id="articles" class="tab-content active">
+            <h2>Articles</h2>
+            <p>This is the Articles section.</p>
+            <ul>
+              <li>Article 1</li>
+              <li>Article 2</li>
+              <li>Article 3</li>
+            </ul>
+          </div>
+
+          <div id="payment" class="tab-content">
+            <div class="container py-4">
+
+              <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                  <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                      <h4 class="mb-0">پرداخت سفارش</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                      <!-- خلاصه سفارش -->
+                      <h5 class="mb-3">خلاصه سفارش</h5>
+
+                      <div class="d-flex justify-content-between border-bottom py-2">
+                        <span>اشتراک یک‌ماهه</span>
+                        <span>۴۹۹,۰۰۰ تومان</span>
+                      </div>
+
+                      <div class="d-flex justify-content-between border-bottom py-2">
+                        <span>مالیات</span>
+                        <span>۰ تومان</span>
+                      </div>
+
+                      <div class="d-flex justify-content-between fw-bold fs-5 py-3">
+                        <span>مبلغ قابل پرداخت</span>
+                        <span class="text-success">۴۹۹,۰۰۰ تومان</span>
+                      </div>
+
+                      <hr>
+
+                      <!-- روش پرداخت -->
+                      <h5 class="mb-3">روش پرداخت</h5>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="online" checked>
+                        <label class="form-check-label" for="online">
+                          پرداخت آنلاین
+                        </label>
+                      </div>
+
+                      <div class="form-check mb-4">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="wallet">
+                        <label class="form-check-label" for="wallet">
+                          پرداخت از کیف پول
+                        </label>
+                      </div>
+
+                      <div class="alert alert-info">
+                        پس از کلیک روی دکمه زیر، به درگاه پرداخت امن بانک منتقل خواهید شد.
+                      </div>
+
+                      <button class="btn btn-success btn-lg w-100">
+                        پرداخت و انتقال به درگاه
+                      </button>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+      </section>
+
+      <section class="section">
+        <h2>درباره سایت نمونه</h2>
+        <div class="paper" style="text-align:center;">
+          <p>
+            سایت نمونه یک وب‌سایت آموزشی است که برای تمرین مهارت‌های توسعه وب و کار با Git ساخته شده است.
+            تمام صفحات این سایت با HTML، CSS و JavaScript پیاده‌سازی شده و داده‌ها در مرورگر شما ذخیره می‌شوند.
+          </p>
+          <a class="btn" href="about.html">بیشتر بدانید</a>
+        </div>
+      </section>
+
     </div>
-  </div>
 
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/articles.js"></script>
   <script>
-    function showTab(tabId) {
-      const contents = document.querySelectorAll('.tab-content');
-      const buttons = document.querySelectorAll('.tab-button');
+    var items = ArticleStore.getArticles().filter(function (a) {
+      return a.status !== 'پیش نویس';
+    }).slice(0, 3);
 
-      contents.forEach(content => content.classList.remove('active'));
-      buttons.forEach(button => button.classList.remove('active'));
+    var box = document.getElementById('featured');
+    box.innerHTML = items.map(function (a) {
+      return '<div class="card">' +
+        '<img src="' + a.image + '" alt="">' +
+        '<div class="card-body">' +
+        '<h3>' + a.title + '</h3>' +
+        '<div class="meta">' + a.date + ' | ' + a.category + '</div>' +
+        '<p>' + a.summary + '</p>' +
+        '<a class="btn" href="Articles/Article.html?id=' + a.id + '">ادامه مطلب</a>' +
+        '</div>' +
+        '</div>';
+    }).join('');
 
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
+    document.getElementById('stat-articles').textContent = items.length;
   </script>
+
 </body>
 
 </html>
