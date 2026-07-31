@@ -4,8 +4,7 @@
     { key: 'articles', url: 'Articles/ArticleList.html', label: 'مقالات', icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' },
     { key: 'payment', url: 'payment.html', label: 'پرداخت', icon: '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>' },
     { key: 'about', url: 'about.html', label: 'درباره ما', icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>' },
-    { key: 'contact', url: 'contact.html', label: 'تماس با ما', icon: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>' },
-    { key: 'admin', url: 'Admin/AdminPanel.html', label: 'مدیریت', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' }
+    { key: 'contact', url: 'contact.html', label: 'تماس با ما', icon: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>' }
   ];
 
   function prefix() {
